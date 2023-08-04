@@ -7,8 +7,8 @@
   <title>The Year To Live</title>
 </head>
 <body>
-  <div class="login-page hidden">
-    <section class="login-section">
+  <section class="login-page hidden">
+    <div class="login-section">
       <h1>You Only Live Once</h1>
       <img class="login-img" src="./images/neon-hallway.png" alt="neon lit hallway that leads around a corner">
       <div class="login-boxes">
@@ -20,15 +20,46 @@
         </label>
         <button class="submit-btn">Login</button>
       </div>
-    </section>
-  </div>
-  <main class="trip-page"></main>
-    <div class="user-trips">
-      <section>
-        
-      </section>
-
     </div>
+  </section>
+  <main></main>
+    <section class="user-welcome">
+      <div class="welcome-panel">
+        <nav>
+          <ul class="nav-bar">
+            <li><h2 class="welcome-msg nav-bar">Welcome ${You}!</h2></li>
+            <li><button class="back-btn nav-bar">Back To Login</button></li>
+          </ul>
+        </nav>
+      </div>
+    </section>
+    <section class="user-input">
+      <div>
+        <label for="start-date" class="input-btn">Start Date:
+          <input type="date" id="date">
+        </label>
+        <label for="duration" class="input-btn">Duration:
+          <input type="number" id="duration">
+        </label>
+        <label for="num-of-travelers" class="input-btn"> Travelers:
+          <input type="number" id="travelers">
+        </label>
+        <label for="drop"> Destination:
+          <select type="text" class="input-btn" id="destination">
+            <option value="0">Where To?</option>
+          </select>
+        </label>
+      </div>
+    </section>
+    <section class="user-trip-info">
+      <div>
+        <button class="trip-btn" id="past">Past Trips</button>
+        <button class="trip-btn" id="upcoming">Upcoming Trips</button>
+        <button class="trip-btn" id="pending">Pending Trips</button>
+      </div>
+    </section>
+    <h2 id="trip-type">Upcoming Trips</h2>
+    <div class="card-container"></div>
   
   <!-- Do not include the scripts.js or class files here - it is done by the webpack server -->
   <script src="bundle.js"></script>
