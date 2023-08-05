@@ -1,3 +1,5 @@
+import { currentTravelerTrips } from "./scripts";
+
 export const fetchUserBookings = (data) => {
   return fetch(`http://localhost:3001/api/v1/${data}`)
   .then(response => response.json());
@@ -8,3 +10,6 @@ export const fetchAll =  [
   fetchUserBookings('trips'),
   fetchUserBookings('destinations')
 ];
+ 
+
+

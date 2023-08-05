@@ -3,7 +3,7 @@
 
 // An example of how you tell webpack to use a CSS (SCSS) file
 import './css/styles.css';
-import './domManipulation';
+import { buildCards, cardContainer } from './domManipulation';
 import { fetchUserBookings, fetchAll } from './travelAPIcalls';
 import { getUserTrips } from './travelData';
 
@@ -16,7 +16,7 @@ var currentTraveler = {
   name: "Rachael Vaughten",
   travelerType: "thrill-seeker"
 }
-let currentTravelerTrips;
+export let currentTravelerTrips;
 
 export const userData = {
   user: null,
@@ -34,19 +34,20 @@ export const userData = {
 window.addEventListener('load', () => {
   Promise.all(fetchAll) 
  .then(data => {
-  userData.travelers = data[0],
-  userData.trips = data[1],
-  userData.destinations = data[2],
+  userData.travelers = data[0].travelers,
+  userData.trips = data[1].trips,
+  userData.destinations = data[2].destinations,
   currentTravelerTrips = getUserTrips(currentTraveler.id, userData.trips)
   
 
-  // buildCards(userData.pendingTrips()--upcoming trips?) bc we have to wait for the data to load 
+  console.log('help', buildCards())
+
  })
 })
 
-
-
-
+cardContainer.addEventListener('click', () => {
+  buildCards()
+})
 
 
 

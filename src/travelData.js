@@ -1,5 +1,11 @@
+
+
+
 export const getUserTrips = (userId, allTrips) => {
-let userTrips = allTrips.trips.filter((trip) => trip.userID === userId)
+  console.log('what', allTrips)
+  console.log('banjo', userId)
+let userTrips = allTrips.filter((trip) => trip.userID === userId)
+console.log('weeeha', userTrips)
 return userTrips
 }
 // output is  = currentTravelerTrips
