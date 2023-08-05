@@ -3,14 +3,14 @@
 
 // An example of how you tell webpack to use a CSS (SCSS) file
 import './css/styles.css';
-import { buildCards, cardContainer, displayUserTrips } from './domManipulation';
+import { buildCards, cardContainer, displayUserTrips, tripButton, pastTripButton, upcomingTripButton, pendingTripButton } from './domManipulation';
 import { fetchUserBookings, fetchAll } from './travelAPIcalls';
 import { getUserTrips } from './travelData';
 
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
 import './images/neon-hallway.png'
 
-// global variable for testssss
+// global variable for tests
 var currentTraveler = {
   id: 2,
   name: "Rachael Vaughten",
@@ -42,8 +42,15 @@ window.addEventListener('load', () => {
  })
 })
 
-cardContainer.addEventListener('click', () => {
-  buildCards(currentTravelerTrips, userData.destinations)
+
+pastTripButton.addEventListener('click', () => {
+  displayUserTrips()
+})
+upcomingTripButton.addEventListener('click', () => {
+  displayUserTrips()
+})
+pendingTripButton.addEventListener('click', () => {
+  displayUserTrips()
 })
 
 
