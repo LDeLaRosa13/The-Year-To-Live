@@ -1,25 +1,48 @@
 import { fetchUserBookings } from './travelAPIcalls';
-import { userData } from './scripts';
+import { currentTravelerTrips, userData } from './scripts';
+import { getUserTrips } from './travelData';
 
 // const tripPage = document.querySelector('.trip-page');
 // const loginButton = document.querySelector('.submit-btn');
 export const cardContainer = document.querySelector('.card-container');
 
-export const buildCards = (trips) => {
-  getUserTrips.map((trip) => {
-    
+export const buildCards = (userTrips, destinations) => {
+  console.log('yeet', userTrips)
+  const currentDate = new Date()
+  const totalTripInfo = userTrips.map((trip) => {
+    let currentDestination = destinations.find(destination => destination.id === trip.destinationID)
+    let startDate = new Date(trip.date)
+    let endDate = new Date(startDate.getTime() + trip.duration * 24 * 60 * 60 * 1000)
+    return {
+      name: currentDestination.destination,
+      image: currentDestination.image,
+      travelers: trip.travelers,
+      dates: `${startDate.toLocaleDateString()} - ${endDate.toLocaleDateString()}`,
+      isCurrentTrip: startDate <= currentDate && currentDate <= endDate
+    }
   })
-  cardContainer.innerHTML += `<div class="card">
-  <section class="trip-destination">${userData.destinations}</section>
-  <section class="trip-dates">${currentTravelerTrips}</section>
-  </div>`
-}
-// iterate over trips and return trip cards (trips.map?)
-// use QS to inject cards where i cut the code from
-// scripts js on page load 
+  console.log('TRIPS', totalTripInfo)
+    return totalTripInfo
+  }
 
 
 export const displayUserTrips = () => {
-// compare Travelers.id with trip.userid and Trip destinationid with Destination ID 
+  const userTrips = currentTravelerTrips;
+  const destinations = userData.destinations;
+  const tripCards = buildCards(userTrips, destinations);
 
+  cardContainer.innerHTML = '';
+
+  tripCards.forEach((trip) => {
+    const card = document.createElement('div');
+    card.classList.add('card');
+
+    const cardHTML = `<section class="trip-destination">${trip.name}</section>
+    // <section class="trip-dates">${trip.dates}</section>`
+
+    card.innerHTML = cardHTML;
+
+    cardContainer.appendChild(card)
+
+  })
 }

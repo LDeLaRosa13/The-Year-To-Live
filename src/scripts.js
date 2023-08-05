@@ -3,7 +3,7 @@
 
 // An example of how you tell webpack to use a CSS (SCSS) file
 import './css/styles.css';
-import { buildCards, cardContainer } from './domManipulation';
+import { buildCards, cardContainer, displayUserTrips } from './domManipulation';
 import { fetchUserBookings, fetchAll } from './travelAPIcalls';
 import { getUserTrips } from './travelData';
 
@@ -38,15 +38,12 @@ window.addEventListener('load', () => {
   userData.trips = data[1].trips,
   userData.destinations = data[2].destinations,
   currentTravelerTrips = getUserTrips(currentTraveler.id, userData.trips)
-  
-
-  console.log('help', buildCards())
-
+  displayUserTrips();
  })
 })
 
 cardContainer.addEventListener('click', () => {
-  buildCards()
+  buildCards(currentTravelerTrips, userData.destinations)
 })
 
 
