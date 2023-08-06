@@ -67,3 +67,7 @@ export const buildCards = (userTrips, destinations) => {
       console.log('monay', costOfAllTrips)
       return costOfAllTrips
     }
+
+    export const userTripRequest = () => {
+
+    }

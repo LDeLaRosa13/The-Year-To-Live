@@ -36,7 +36,9 @@ return card;
       tripsToShow.forEach((trip) => {
         const card = createCardElement(trip);
         cardContainer.appendChild(card);
+
       });  
+      console.log("tripsToShow", tripsToShow)
     }
 
     export const displayTripCost = (tripCost) => {
