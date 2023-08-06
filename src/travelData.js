@@ -13,6 +13,7 @@ export const buildCards = (userTrips, destinations) => {
     let currentDestination = destinations.find(
       (destination) => destination.id === trip.destinationID
       );
+      console.log('WTFFFFF', destinations)
       let startDate = new Date(trip.date);
       let endDate = new Date(
         startDate.getTime() + trip.duration * 24 * 60 * 60 * 1000

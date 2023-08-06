@@ -14,6 +14,7 @@ export const pastTripsButton = document.getElementById("past");
 export const upcomingTripsButton = document.getElementById("upcoming");
 export const pendingTripsButton = document.getElementById("pending");
 export const tripCostContainer = document.getElementById("tripCostContainer")
+export const destDrop = document.getElementById("destination");
 
 // global variable for tests
 var currentTraveler = {
@@ -21,6 +22,7 @@ var currentTraveler = {
   name: "Rachael Vaughten",
   travelerType: "thrill-seeker"
 }
+
 export let currentTravelerTrips;
 export let tripCost;
 export const travelAgentFeePercentage = 0.10;
@@ -51,9 +53,19 @@ window.addEventListener('load', () => {
 
   displayTripCost(tripCost);
   displayUserTrips();
+  setDestinationDropDown(userData.destinations)
  })
 })
 
+
+export const setDestinationDropDown = (dest) => {
+  
+  return dest.map((locale) => {
+    return destDrop.innerHTML += `
+    <option value="${locale.destination}">${locale.destination}</option>`
+  })
+  
+}
 
 pastTripsButton.addEventListener('click', () => {
   pastTripsButton.classList.add("active")
