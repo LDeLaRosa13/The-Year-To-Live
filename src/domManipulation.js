@@ -6,6 +6,7 @@ import { getUserTrips, buildCards } from "./travelData";
 // const loginButton = document.querySelector('.submit-btn');
 export const cardContainer = document.querySelector(".card-container");
 export const tripButton = document.querySelector(".trip-btn");
+export const estimatedTotalCost = document.querySelector(".estimated-cost");
 
 
     
