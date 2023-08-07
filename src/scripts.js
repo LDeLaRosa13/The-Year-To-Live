@@ -25,7 +25,7 @@ export const pastTripsButton = document.getElementById("past");
 export const upcomingTripsButton = document.getElementById("upcoming");
 export const pendingTripsButton = document.getElementById("pending");
 export const tripCostContainer = document.getElementById("tripCostContainer");
-export const destDrop = document.getElementById("destination");
+export const destinationDrop = document.getElementById("destination");
 export const tripDuration = document.getElementById("duration");
 export const potentialTravelers = document.getElementById("travelers");
 export const startDate = document.getElementById("start-date");
@@ -36,6 +36,7 @@ export const submitButton = document.getElementById("submit-btn");
 export let currentTravelerTrips;
 export let tripCost;
 export const travelAgentFeePercentage = 1.1;
+// export const destinationID = 
 
 export const userData = {
   user: {
@@ -60,7 +61,7 @@ window.addEventListener("load", () => {
 
 export const setDestinationDropDown = (dest) => {
   return dest.map((locale) => {
-    return (destDrop.innerHTML += `
+    return (destinationDrop.innerHTML += `
     <option value="${locale.destination}">${locale.destination}</option>`);
   });
 };
@@ -79,12 +80,12 @@ upcomingTripsButton.addEventListener("click", () => {
 //   displayUserTrips()
 // })
 
-destDrop.addEventListener("change", () => {
+destinationDrop.addEventListener("change", () => {
   estimatedTotalCost.innerHTML = `${estimatedCost(
     duration.value,
     Number(travelers.value),
     userData.destinations.find((place) => {
-      return place.destination === destination.value;
+      return place.destination === destinationDrop.value;
     })
   )}`;
 });
@@ -94,7 +95,7 @@ tripDuration.addEventListener("change", () => {
     duration.value,
     Number(travelers.value),
     userData.destinations.find((place) => {
-      return place.destination === destination.value;
+      return place.destination === destinationDrop.value;
     })
   )}`;
 });
@@ -104,16 +105,17 @@ potentialTravelers.addEventListener("change", () => {
     duration.value,
     Number(travelers.value),
     userData.destinations.find((place) => {
-      return place.destination === destination.value;
+      return place.destination === destinationDrop.value;
     })
   )}`;
 });
 
 submitButton.addEventListener('click', () => {
-  postUserTrips(204, userData.user.id, destinationID, parseInt(travelers.value), (startDate.value).replaceAll("-", "/"), parseInt(tripDuration.value), 'pending', [])
+  console.log("kooool", userData.destinations[0].id)
+  postUserTrips(204, userData.user.id, userData.destinations[0].id, parseInt(travelers.value), (startDate.value).replaceAll("-", "/"), parseInt(tripDuration.value), 'pending', [])
   .then(response => console.log(response))
   .then(renderApp())
-  
+
   
 })
 function renderApp() {
@@ -132,6 +134,5 @@ function renderApp() {
     displayTripCost(tripCost);
     displayUserTrips();
     setDestinationDropDown(userData.destinations);
-    console.log(data[2].destinations[4].id)
   });
 }
