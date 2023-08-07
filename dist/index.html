@@ -7,7 +7,7 @@
   <title>The Year To Live</title>
 </head>
 <body>
-  <section class="login-page hidden">
+  <section class="login-page">
     <div class="login-section">
       <h1>You Only Live Once</h1>
       <img class="login-img" src="./images/neon-hallway.png" alt="neon lit hallway that leads around a corner">
@@ -23,6 +23,7 @@
     </div>
   </section>
   <main></main>
+  <div class="hide-main hidden">
     <section class="user-welcome">
       <div class="welcome-panel">
         <nav>
@@ -57,13 +58,13 @@
         <button class="trip-btn" id="upcoming">Upcoming Trips</button>
         <button class="trip-btn" id="pending">Pending Trips</button>
         <p>Total Spent This Year: <span id="tripCostContainer">$0.00</span><p>
-      </div>
+        </div>
+        <div class="vacation-card hidden"></div>
     </section>
     <h2 id="trip-type">Show Trips</h2>
     <div class="card-container">
-      
     </div>
-  
+  </div>
   <!-- Do not include the scripts.js or class files here - it is done by the webpack server -->
   <script src="bundle.js"></script>
 
