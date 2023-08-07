@@ -9,13 +9,19 @@ import {
   createCardElement,
   displayTripCost,
   estimatedTotalCost,
+  displayVacation,
+  vacationCard, 
+  loginButton,
+  hideMain,
+  loginPage
 } from "./domManipulation";
-import { fetchUserBookings, fetchAll, fetchUserTrips, postUserTrips } from "./travelAPIcalls";
+import { fetchUserBookings, fetchAll, fetchUserTrips, postUserTrips, singleFetchRequest } from "./travelAPIcalls";
 import {
   getUserTrips,
   buildCards,
   calculateTripCost,
   estimatedCost,
+  validateLogin,
 } from "./travelData";
 
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
@@ -30,13 +36,15 @@ export const tripDuration = document.getElementById("duration");
 export const potentialTravelers = document.getElementById("travelers");
 export const startDate = document.getElementById("start-date");
 export const submitButton = document.getElementById("submit-btn");
+export const userName = document.getElementById("username");
+export const loginPassword = document.getElementById("password");
 
 
 //Global Variables
 export let currentTravelerTrips;
 export let tripCost;
 export const travelAgentFeePercentage = 1.1;
-// export const destinationID = 
+export let potentialVacation = {};
 
 export const userData = {
   user: {
@@ -76,9 +84,13 @@ upcomingTripsButton.addEventListener("click", () => {
   upcomingTripsButton.classList.add("active");
   displayUserTrips();
 });
-// pendingTripButton.addEventListener('click', () => {
-//   displayUserTrips()
-// })
+
+pendingTripsButton.addEventListener('click', () => {
+  pastTripsButton.classList.remove("active");
+  upcomingTripsButton.classList.remove("active");
+  pendingTripsButton.classList.add("active");
+  displayUserTrips()
+})
 
 destinationDrop.addEventListener("change", () => {
   estimatedTotalCost.innerHTML = `${estimatedCost(
@@ -114,27 +126,74 @@ submitButton.addEventListener('click', () => {
   const locationID = userData.destinations.find((destination) => {
     return destinationDrop.value === destination.destination
   })
-  postUserTrips(Date.now(), userData.user.id, locationID.id, parseInt(travelers.value), (startDate.value).replaceAll("-", "/"), parseInt(tripDuration.value), 'pending', [])
-  .then(response => console.log(response))
-  .then(renderApp())
+  displayVacation(locationID,  parseInt(travelers.value), (startDate.value).replaceAll("-", "/"), parseInt(tripDuration.value) )
 
-  
+  potentialVacation = {
+    id: Date.now(),
+    userID: userData.user.id,
+    destinationID: locationID.id,
+    travelers: parseInt(travelers.value),
+    date: (startDate.value).replaceAll("-", "/"),
+    duration: parseInt(tripDuration.value),
+    status: 'pending',
+    suggestedActivities: []
+  }
+
+  vacationCard.classList.remove("hidden")
 })
+
+
+vacationCard.addEventListener('click', (e) => {
+  let target = e.target
+  if (target.tagName === "BUTTON") {
+    postUserTrips(potentialVacation).then(() => {
+      singleFetchRequest("http://localhost:3001/api/v1/trips")
+      .then(data => {
+        userData.trips = data.trips;
+        currentTravelerTrips = getUserTrips(userData.user.id, userData.trips);
+        displayUserTrips()
+      })
+      vacationCard.classList.add("hidden")
+    })
+  }
+ 
+
+})
+
+
 function renderApp() {
-  Promise.all(fetchAll).then((data) => {
-    (userData.travelers = data[0].travelers),
-      (userData.trips = data[1].trips),
-      (userData.destinations = data[2].destinations),
-      (currentTravelerTrips = getUserTrips(userData.user.id, userData.trips));
+  Promise.all(fetchAll)
+    .then((data) => {
+      userData.travelers = data[0].travelers;
+      userData.trips = data[1].trips;
+      userData.destinations = data[2].destinations;
+      currentTravelerTrips = getUserTrips(userData.user.id, userData.trips);
+      
 
-    const currentYear = new Date().getFullYear(), tripCost = calculateTripCost(
-      userData.trips,
-      userData.destinations,
-      currentYear
-    );
-
-    displayTripCost(tripCost);
-    displayUserTrips();
-    setDestinationDropDown(userData.destinations);
-  });
+      const currentYear = new Date().getFullYear();
+      tripCost = calculateTripCost(
+        userData.trips,
+        userData.destinations,
+        currentYear
+      );
+      
+      displayTripCost(tripCost);
+      displayUserTrips();
+      setDestinationDropDown(userData.destinations);
+    })
+    .catch((error) => {
+      console.error("Error fetching data:", error);
+    });
 }
+
+loginButton.addEventListener('click', () => {
+  let loginName = userName.value
+  let password = loginPassword.value
+  if (!validateLogin(loginName, password)) {
+    return 
+  } else {
+    hideMain.classList.remove("hidden")
+    loginPage.classList.add("hidden")
+    renderApp()
+  }
+})

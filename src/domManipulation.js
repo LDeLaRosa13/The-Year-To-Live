@@ -1,12 +1,15 @@
 import { fetchUserBookings } from "./travelAPIcalls";
 import { currentTravelerTrips, tripCostContainer, userData } from "./scripts";
-import { getUserTrips, buildCards } from "./travelData";
+import { getUserTrips, buildCards, estimatedCost } from "./travelData";
 
 // const tripPage = document.querySelector('.trip-page');
-// const loginButton = document.querySelector('.submit-btn');
+export const loginButton = document.querySelector('.submit-btn');
 export const cardContainer = document.querySelector(".card-container");
 export const tripButton = document.querySelector(".trip-btn");
 export const estimatedTotalCost = document.querySelector(".estimated-cost");
+export const vacationCard = document.querySelector(".vacation-card");
+export const hideMain = document.querySelector(".hide-main");
+export const loginPage = document.querySelector(".login-page");
 
 
     
@@ -26,23 +29,53 @@ return card;
     export const displayUserTrips = () => {
       const userTrips = currentTravelerTrips;
       const destinations = userData.destinations;
-      const { pastTrips, upcomingTrips } = buildCards(userTrips, destinations);
+      const { pastTrips, upcomingTrips, pendingTrips } = buildCards(userTrips, destinations);
       
       cardContainer.innerHTML = "";
 
-       const tripsToShow = document.getElementById("past").classList.contains("active")
-        ? pastTrips
-        : upcomingTrips
+      let tripsToShow;
+      if (document.getElementById("past").classList.contains("active")) {
+        tripsToShow = pastTrips;
+      } else if (document.getElementById("upcoming").classList.contains("active")) {
+        tripsToShow = upcomingTrips;
+      } else if (document.getElementById("pending").classList.contains("active")) {
+        tripsToShow = pendingTrips;
+      } else {
+        return;
+      }
 
       tripsToShow.forEach((trip) => {
         const card = createCardElement(trip);
         cardContainer.appendChild(card);
 
       });  
-      console.log("tripsToShow", tripsToShow)
+    }
+
+    export const createVacationElement = (vacation) => {
+    console.log("vacation", vacation)
+    vacationCard.innerHTML = `<h2 class="trip-destination">${vacation.name}</h2>
+      <img class="trip-img" src="${vacation.image}" alt="Trip Image>
+       <p class="trip-dates">${vacation.dates}</p>
+       <p class="vacation-info">${vacation.travelers}</p>
+       <p class="vacation-cost">${vacation.cost}</p>
+       <button id="vacationId">Book This Vacation!</button>`;
+    
     }
 
     export const displayTripCost = (tripCost) => {
       tripCostContainer.innerHTML = `$${tripCost}`
     }
       
+    export const displayVacation = (destination, travelers, dates, durationInput) => {
+      const vacation = {
+        name: destination.destination,
+        cost: estimatedCost(durationInput, travelers, destination),
+        travelers: travelers,
+        dates: dates,
+        image: destination.image
+      }
+      createVacationElement(vacation)
+      
+      }
+    
+    

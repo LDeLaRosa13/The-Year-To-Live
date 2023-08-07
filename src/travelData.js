@@ -22,19 +22,25 @@ export const buildCards = (userTrips, destinations) => {
       name: currentDestination.destination,
       image: currentDestination.image,
       travelers: trip.travelers,
+      status: trip.status,
       dates: `${startDate.toLocaleDateString()} - ${endDate.toLocaleDateString()}`,
       isCurrentTrip: startDate <= currentDate && currentDate <= endDate,
     };
   });
 
   const pastTrips = totalTripInfo.filter((trip) => {
-    return !trip.isCurrentTrip && trip.status !== "approved";
+    return !trip.isCurrentTrip &&  trip.status !== "pending";
   });
 
   const upcomingTrips = totalTripInfo.filter((trip) => {
     return trip.isCurrentTrip && trip.status === "approved";
   });
-  return { pastTrips, upcomingTrips };
+
+  const pendingTrips = totalTripInfo.filter((trip) => {
+    return trip.status === "pending";
+  });
+  console.log("whereareyou", pendingTrips)
+  return { pastTrips, upcomingTrips, pendingTrips };
 };
 
 export const calculateTripCost = (userTripsObj, destinations, year) => {
@@ -78,3 +84,16 @@ export const estimatedCost = (duration, travelers, destination) => {
     return "Estimated Total Cost: Please fill out all of the information!";
   }
 };
+
+export const validateLogin = (name, password) => {
+  const loginName = name.slice(0, 8)
+  const loginID = Number(name.slice(8))
+  const loginPassword = password
+
+  if (Number.isInteger(loginID) && loginName === "traveler" && loginID < 51 && loginID > 0 && loginPassword === "travel") {
+    console.log("goodlogin")
+    return true 
+  } else {
+    return false
+  }
+}
