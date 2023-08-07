@@ -12,16 +12,30 @@ export const fetchAll = [
   fetchUserBookings("destinations"),
 ];
 
-export const fetchUserTrips = (trips) => {
+export const postUserTrips = (id, userID, destinationID, travelers, date, duration, status, suggestedActivities) => {
+  const postObject = {
+    id: id,
+    userID: userID,
+    destinationID: destinationID,
+    travelers: travelers,
+    date: date,
+    duration: duration,
+    status: status,
+    suggestedActivities: suggestedActivities
+  }
+
+  console.log("pls", postObject)
+
   return fetch("http://localhost:3001/api/v1/trips", {
     method: "POST",
     body: JSON.stringify({
       id: id,
       userID: userID,
+      destinationID: destinationID,
       travelers: travelers,
-      date: "YYYY/MM/DD",
+      date: date,
       duration: duration,
-      status: "approved" || "pending",
+      status: status,
       suggestedActivities: suggestedActivities,
     }),
     headers: { "Content-Type": "application/json" },

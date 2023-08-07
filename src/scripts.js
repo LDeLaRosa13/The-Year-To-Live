@@ -10,7 +10,7 @@ import {
   displayTripCost,
   estimatedTotalCost,
 } from "./domManipulation";
-import { fetchUserBookings, fetchAll } from "./travelAPIcalls";
+import { fetchUserBookings, fetchAll, fetchUserTrips, postUserTrips } from "./travelAPIcalls";
 import {
   getUserTrips,
   buildCards,
@@ -28,20 +28,21 @@ export const tripCostContainer = document.getElementById("tripCostContainer");
 export const destDrop = document.getElementById("destination");
 export const tripDuration = document.getElementById("duration");
 export const potentialTravelers = document.getElementById("travelers");
+export const startDate = document.getElementById("start-date");
+export const submitButton = document.getElementById("submit-btn");
 
-// global variable for tests
-var currentTraveler = {
-  id: 34,
-  name: "Rachael Vaughten",
-  travelerType: "thrill-seeker",
-};
 
+//Global Variables
 export let currentTravelerTrips;
 export let tripCost;
 export const travelAgentFeePercentage = 1.1;
 
 export const userData = {
-  user: null,
+  user: {
+    id: 34,
+    name: "Rachael Vaughten",
+    travelerType: "thrill-seeker",
+  },
   travelers: [],
   trips: {
     all: [],
@@ -54,23 +55,7 @@ export const userData = {
 
 // Event Listeners
 window.addEventListener("load", () => {
-  Promise.all(fetchAll).then((data) => {
-    (userData.travelers = data[0].travelers),
-      (userData.trips = data[1].trips),
-      (userData.destinations = data[2].destinations),
-      (currentTravelerTrips = getUserTrips(currentTraveler.id, userData.trips));
-
-    const currentYear = new Date().getFullYear(),
-      tripCost = calculateTripCost(
-        userData.trips,
-        userData.destinations,
-        currentYear
-      );
-
-    displayTripCost(tripCost);
-    displayUserTrips();
-    setDestinationDropDown(userData.destinations);
-  });
+  renderApp();
 });
 
 export const setDestinationDropDown = (dest) => {
@@ -123,3 +108,30 @@ potentialTravelers.addEventListener("change", () => {
     })
   )}`;
 });
+
+submitButton.addEventListener('click', () => {
+  postUserTrips(204, userData.user.id, destinationID, parseInt(travelers.value), (startDate.value).replaceAll("-", "/"), parseInt(tripDuration.value), 'pending', [])
+  .then(response => console.log(response))
+  .then(renderApp())
+  
+  
+})
+function renderApp() {
+  Promise.all(fetchAll).then((data) => {
+    (userData.travelers = data[0].travelers),
+      (userData.trips = data[1].trips),
+      (userData.destinations = data[2].destinations),
+      (currentTravelerTrips = getUserTrips(userData.user.id, userData.trips));
+
+    const currentYear = new Date().getFullYear(), tripCost = calculateTripCost(
+      userData.trips,
+      userData.destinations,
+      currentYear
+    );
+
+    displayTripCost(tripCost);
+    displayUserTrips();
+    setDestinationDropDown(userData.destinations);
+    console.log(data[2].destinations[4].id)
+  });
+}
