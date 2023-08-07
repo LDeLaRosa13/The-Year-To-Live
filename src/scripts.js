@@ -114,8 +114,6 @@ submitButton.addEventListener('click', () => {
   const locationID = userData.destinations.find((destination) => {
     return destinationDrop.value === destination.destination
   })
-  console.log("locationid", locationID)
-  console.log("kooool", userData.user)
   postUserTrips(Date.now(), userData.user.id, locationID.id, parseInt(travelers.value), (startDate.value).replaceAll("-", "/"), parseInt(tripDuration.value), 'pending', [])
   .then(response => console.log(response))
   .then(renderApp())
