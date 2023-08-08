@@ -4,9 +4,7 @@
 // An example of how you tell webpack to use a CSS (SCSS) file
 import "./css/styles.css";
 import {
-  cardContainer,
   displayUserTrips,
-  createCardElement,
   displayTripCost,
   estimatedTotalCost,
   displayVacation,
@@ -15,7 +13,7 @@ import {
   hideMain,
   loginPage
 } from "./domManipulation";
-import { fetchUserBookings, fetchAll, fetchUserTrips, postUserTrips, singleFetchRequest } from "./travelAPIcalls";
+import { fetchAll, postUserTrips, singleFetchRequest } from "./travelAPIcalls";
 import {
   getUserTrips,
   calculateTripCost,
@@ -189,7 +187,7 @@ loginButton.addEventListener('click', () => {
   let loginName = userName.value
   let password = loginPassword.value
   if (!validateLogin(loginName, password)) {
-    return 
+    alert ('Your information is incorrect!')
   } else {
     hideMain.classList.remove("hidden")
     loginPage.classList.add("hidden")

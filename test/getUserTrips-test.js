@@ -1,7 +1,7 @@
 import { expect } from "chai";
-import { sampleTrip } from "../src/trips-sample-data";
+import { sampleTrips } from "../src/trips-sample-data";
 import { sampleTravelers } from "../src/travelers-sample-data";
-import { sampleDestination } from "../src/destination-sample-data";
+import { sampleDestinations } from "../src/destination-sample-data";
 import { getUserTrips } from "../src/travelData";
 
 describe("collect users trips", () => {
@@ -10,7 +10,7 @@ describe("collect users trips", () => {
   });
 
   it("should return trips that match user id", () => {
-    const userTrips = getUserTrips(1, sampleTrip);
+    const userTrips = getUserTrips(1, sampleTrips);
     expect(userTrips).to.deep.equal([
       {
         id: 117,
@@ -37,11 +37,11 @@ describe("collect users trips", () => {
         userID: 1,
         destinationID: 9,
         travelers: 6,
-        date: "2020/04/21",
+        date: "2024/04/21",
         duration: 18,
         status: "pending",
         suggestedActivities: [],
-      },
+      }
     ]);
   });
   // it('')
