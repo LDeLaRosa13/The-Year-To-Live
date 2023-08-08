@@ -74,7 +74,7 @@ export const calculateTripCost = (userTripsObj, destinations, year) => {
 
 export const estimatedCost = (duration, travelers, destination) => {
   if (duration && travelers && destination) {
-    return `$${(
+    return  `Estimated Total Cost: $${(
       (destination.estimatedLodgingCostPerDay * duration +
         destination.estimatedFlightCostPerPerson * travelers) *
         travelAgentFeePercentage

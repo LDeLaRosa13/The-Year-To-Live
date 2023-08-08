@@ -9,8 +9,7 @@
 <body>
   <section class="login-page">
     <div class="login-section">
-      <h1>You Only Live Once</h1>
-      <img class="login-img" src="./images/neon-hallway.png" alt="neon lit hallway that leads around a corner">
+      <h1 class="yolo">You Only Live Once</h1>
       <div class="login-boxes">
         <label for="username" class="login-info" Username:>
           <input type="text" placeholder="username" id="username">
@@ -22,7 +21,7 @@
       </div>
     </div>
   </section>
-  <main></main>
+  <main>
   <div class="hide-main hidden">
     <section class="user-welcome">
       <div class="welcome-panel">
@@ -52,18 +51,19 @@
         <p class="estimated-cost">Estimated Total Cost:</p>
     </section>
     <section class="user-trip-info">
-      <div>
+      <p>Total Spent This Year: <span id="tripCostContainer">$0.00</span><p>
+      <div class="button-box">
         <button class="trip-btn" id="past">Past Trips</button>
         <button class="trip-btn" id="upcoming">Upcoming Trips</button>
         <button class="trip-btn" id="pending">Pending Trips</button>
-        <p>Total Spent This Year: <span id="tripCostContainer">$0.00</span><p>
-        </div>
-        <div class="vacation-card hidden"></div>
+      </div>
+      <div class="vacation-card hidden"></div>
     </section>
     <h2 id="trip-type">Show Trips</h2>
     <div class="card-container">
     </div>
   </div>
+  </main>
   <!-- Do not include the scripts.js or class files here - it is done by the webpack server -->
   <script src="bundle.js"></script>
 

@@ -8,10 +8,10 @@ import {
   displayTripCost,
   estimatedTotalCost,
   displayVacation,
-  vacationCard, 
+  vacationCard,
   loginButton,
   hideMain,
-  loginPage
+  loginPage,
 } from "./domManipulation";
 import { fetchAll, postUserTrips, singleFetchRequest } from "./travelAPIcalls";
 import {
@@ -35,7 +35,6 @@ export const startDate = document.getElementById("start-date");
 export const submitButton = document.getElementById("submit-btn");
 export const userName = document.getElementById("username");
 export const loginPassword = document.getElementById("password");
-
 
 //Global Variables
 export let currentTravelerTrips;
@@ -81,12 +80,12 @@ upcomingTripsButton.addEventListener("click", () => {
   displayUserTrips();
 });
 
-pendingTripsButton.addEventListener('click', () => {
+pendingTripsButton.addEventListener("click", () => {
   pastTripsButton.classList.remove("active");
   upcomingTripsButton.classList.remove("active");
   pendingTripsButton.classList.add("active");
-  displayUserTrips()
-})
+  displayUserTrips();
+});
 
 destinationDrop.addEventListener("change", () => {
   estimatedTotalCost.innerHTML = `${estimatedCost(
@@ -118,45 +117,44 @@ potentialTravelers.addEventListener("change", () => {
   )}`;
 });
 
-submitButton.addEventListener('click', () => {
+submitButton.addEventListener("click", () => {
   const locationID = userData.destinations.find((destination) => {
-    return destinationDrop.value === destination.destination
-  })
-  displayVacation(locationID,  parseInt(potentialTravelers.value), (startDate.value).replaceAll("-", "/"), parseInt(tripDuration.value) )
-
+    return destinationDrop.value === destination.destination;
+  });
+  displayVacation(
+    locationID,
+    parseInt(potentialTravelers.value),
+    startDate.value.replaceAll("-", "/"),
+    parseInt(tripDuration.value)
+  );
 
   potentialVacation = {
     id: Date.now(),
     userID: userData.user.id,
     destinationID: locationID.id,
     travelers: parseInt(potentialTravelers.value),
-    date: (startDate.value).replaceAll("-", "/"),
+    date: startDate.value.replaceAll("-", "/"),
     duration: parseInt(tripDuration.value),
-    status: 'pending',
-    suggestedActivities: []
-  }
+    status: "pending",
+    suggestedActivities: [],
+  };
 
-  vacationCard.classList.remove("hidden")
-})
+  vacationCard.classList.remove("hidden");
+});
 
-
-vacationCard.addEventListener('click', (e) => {
-  let target = e.target
+vacationCard.addEventListener("click", (e) => {
+  let target = e.target;
   if (target.tagName === "BUTTON") {
     postUserTrips(potentialVacation).then(() => {
-      singleFetchRequest("http://localhost:3001/api/v1/trips")
-      .then(data => {
+      singleFetchRequest("http://localhost:3001/api/v1/trips").then((data) => {
         userData.trips = data.trips;
         currentTravelerTrips = getUserTrips(userData.user.id, userData.trips);
-        displayUserTrips()
-      })
-      vacationCard.classList.add("hidden")
-    })
+        displayUserTrips();
+      });
+      vacationCard.classList.add("hidden");
+    });
   }
- 
-
-})
-
+});
 
 function renderApp() {
   Promise.all(fetchAll)
@@ -165,7 +163,6 @@ function renderApp() {
       userData.trips = data[1].trips;
       userData.destinations = data[2].destinations;
       currentTravelerTrips = getUserTrips(userData.user.id, userData.trips);
-      
 
       const currentYear = new Date().getFullYear();
       tripCost = calculateTripCost(
@@ -173,24 +170,26 @@ function renderApp() {
         userData.destinations,
         currentYear
       );
-      
+
       displayTripCost(tripCost);
       displayUserTrips();
       setDestinationDropDown(userData.destinations);
+      const currentDate = new Date().toISOString().split("T")[0];
+      startDate.min = currentDate;
     })
     .catch((error) => {
       console.error("Error fetching data:", error);
     });
 }
 
-loginButton.addEventListener('click', () => {
-  let loginName = userName.value
-  let password = loginPassword.value
+loginButton.addEventListener("click", () => {
+  let loginName = userName.value;
+  let password = loginPassword.value;
   if (!validateLogin(loginName, password)) {
-    alert ('Your information is incorrect!')
+    alert("Your information is incorrect!");
   } else {
-    hideMain.classList.remove("hidden")
-    loginPage.classList.add("hidden")
-    renderApp()
+    hideMain.classList.remove("hidden");
+    loginPage.classList.add("hidden");
+    renderApp();
   }
-})
+});
