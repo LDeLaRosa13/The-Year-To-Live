@@ -1,19 +1,20 @@
-import { travelAgentFeePercentage } from "./scripts";
-import { estimatedTotalCost } from "./domManipulation";
+export const travelAgentFeePercentage = 1.1;
 
 export const getUserTrips = (userId, allTrips) => {
-  console.log("allTrips", allTrips);
+  // console.log("allTrips", allTrips);
   let userTrips = allTrips.filter((trip) => trip.userID === userId);
   return userTrips;
 };
 
 export const buildCards = (userTrips, destinations) => {
-  console.log("userTrips", userTrips);
   const currentDate = new Date();
   const totalTripInfo = userTrips.map((trip) => {
-    let currentDestination = destinations.find(
-      (destination) => destination.id === trip.destinationID
-    );
+    let currentDestination = destinations.find((dest) => {
+      return dest.id === trip.destinationID;
+    });
+    if (!currentDestination) {
+      console.log("No matching destination found for trip:", trip);
+    }
     let startDate = new Date(trip.date);
     let endDate = new Date(
       startDate.getTime() + trip.duration * 24 * 60 * 60 * 1000
@@ -29,7 +30,7 @@ export const buildCards = (userTrips, destinations) => {
   });
 
   const pastTrips = totalTripInfo.filter((trip) => {
-    return !trip.isCurrentTrip &&  trip.status !== "pending";
+    return !trip.isCurrentTrip && trip.status !== "pending";
   });
 
   const upcomingTrips = totalTripInfo.filter((trip) => {
@@ -39,7 +40,7 @@ export const buildCards = (userTrips, destinations) => {
   const pendingTrips = totalTripInfo.filter((trip) => {
     return trip.status === "pending";
   });
-  console.log("whereareyou", pendingTrips)
+  console.log("whereareyou", pendingTrips);
   return { pastTrips, upcomingTrips, pendingTrips };
 };
 
@@ -54,6 +55,7 @@ export const calculateTripCost = (userTripsObj, destinations, year) => {
 
   userTrips.forEach((trip) => {
     const desID = trip.destinationID;
+    console.log(desID)
     const duration = trip.duration;
 
     destinations.forEach((location) => {
@@ -75,25 +77,31 @@ export const calculateTripCost = (userTripsObj, destinations, year) => {
 
 export const estimatedCost = (duration, travelers, destination) => {
   if (duration && travelers && destination) {
-    return `$${
-      ((destination.estimatedLodgingCostPerDay * duration +
+    return `$${(
+      (destination.estimatedLodgingCostPerDay * duration +
         destination.estimatedFlightCostPerPerson * travelers) *
-      travelAgentFeePercentage).toFixed(2)
-    }`;
+      travelAgentFeePercentage
+    ).toFixed(2)}`;
   } else {
     return "Estimated Total Cost: Please fill out all of the information!";
   }
 };
 
 export const validateLogin = (name, password) => {
-  const loginName = name.slice(0, 8)
-  const loginID = Number(name.slice(8))
-  const loginPassword = password
+  const loginName = name.slice(0, 8);
+  const loginID = Number(name.slice(8));
+  const loginPassword = password;
 
-  if (Number.isInteger(loginID) && loginName === "traveler" && loginID < 51 && loginID > 0 && loginPassword === "travel") {
-    console.log("goodlogin")
-    return true 
+  if (
+    Number.isInteger(loginID) &&
+    loginName === "traveler" &&
+    loginID < 51 &&
+    loginID > 0 &&
+    loginPassword === "travel"
+  ) {
+    console.log("goodlogin");
+    return true;
   } else {
-    return false
+    return false;
   }
-}
+};

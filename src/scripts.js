@@ -18,7 +18,6 @@ import {
 import { fetchUserBookings, fetchAll, fetchUserTrips, postUserTrips, singleFetchRequest } from "./travelAPIcalls";
 import {
   getUserTrips,
-  buildCards,
   calculateTripCost,
   estimatedCost,
   validateLogin,
@@ -43,7 +42,6 @@ export const loginPassword = document.getElementById("password");
 //Global Variables
 export let currentTravelerTrips;
 export let tripCost;
-export const travelAgentFeePercentage = 1.1;
 export let potentialVacation = {};
 
 export const userData = {
@@ -94,8 +92,8 @@ pendingTripsButton.addEventListener('click', () => {
 
 destinationDrop.addEventListener("change", () => {
   estimatedTotalCost.innerHTML = `${estimatedCost(
-    duration.value,
-    Number(travelers.value),
+    tripDuration.value,
+    Number(potentialTravelers.value),
     userData.destinations.find((place) => {
       return place.destination === destinationDrop.value;
     })
@@ -104,8 +102,8 @@ destinationDrop.addEventListener("change", () => {
 
 tripDuration.addEventListener("change", () => {
   estimatedTotalCost.innerHTML = `${estimatedCost(
-    duration.value,
-    Number(travelers.value),
+    tripDuration.value,
+    Number(potentialTravelers.value),
     userData.destinations.find((place) => {
       return place.destination === destinationDrop.value;
     })
@@ -114,8 +112,8 @@ tripDuration.addEventListener("change", () => {
 
 potentialTravelers.addEventListener("change", () => {
   estimatedTotalCost.innerHTML = `${estimatedCost(
-    duration.value,
-    Number(travelers.value),
+    tripDuration.value,
+    Number(potentialTravelers.value),
     userData.destinations.find((place) => {
       return place.destination === destinationDrop.value;
     })
@@ -126,13 +124,14 @@ submitButton.addEventListener('click', () => {
   const locationID = userData.destinations.find((destination) => {
     return destinationDrop.value === destination.destination
   })
-  displayVacation(locationID,  parseInt(travelers.value), (startDate.value).replaceAll("-", "/"), parseInt(tripDuration.value) )
+  displayVacation(locationID,  parseInt(potentialTravelers.value), (startDate.value).replaceAll("-", "/"), parseInt(tripDuration.value) )
+
 
   potentialVacation = {
     id: Date.now(),
     userID: userData.user.id,
     destinationID: locationID.id,
-    travelers: parseInt(travelers.value),
+    travelers: parseInt(potentialTravelers.value),
     date: (startDate.value).replaceAll("-", "/"),
     duration: parseInt(tripDuration.value),
     status: 'pending',

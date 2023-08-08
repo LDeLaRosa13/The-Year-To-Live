@@ -1,6 +1,6 @@
 import { fetchUserBookings } from "./travelAPIcalls";
 import { currentTravelerTrips, tripCostContainer, userData } from "./scripts";
-import { getUserTrips, buildCards, estimatedCost } from "./travelData";
+import { buildCards, estimatedCost } from "./travelData";
 
 // const tripPage = document.querySelector('.trip-page');
 export const loginButton = document.querySelector('.submit-btn');
