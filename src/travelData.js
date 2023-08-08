@@ -39,7 +39,6 @@ export const buildCards = (userTrips, destinations) => {
   const pendingTrips = totalTripInfo.filter((trip) => {
     return trip.status === "pending";
   });
-  console.log("whereareyou", pendingTrips);
   return { pastTrips, upcomingTrips, pendingTrips };
 };
 
@@ -96,7 +95,7 @@ export const validateLogin = (name, password) => {
     loginID > 0 &&
     loginPassword === "travel"
   ) {
-    return true;
+    return loginID;
   } else {
     return false;
   }

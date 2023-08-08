@@ -12,6 +12,7 @@ import {
   loginButton,
   hideMain,
   loginPage,
+  welcomeMessage
 } from "./domManipulation";
 import { fetchAll, postUserTrips, singleFetchRequest } from "./travelAPIcalls";
 import {
@@ -42,11 +43,7 @@ export let tripCost;
 export let potentialVacation = {};
 
 export const userData = {
-  user: {
-    id: 34,
-    name: "Rachael Vaughten",
-    travelerType: "thrill-seeker",
-  },
+  user: {},
   travelers: [],
   trips: {
     all: [],
@@ -170,7 +167,7 @@ function renderApp() {
         userData.destinations,
         currentYear
       );
-
+      welcomeMessage.innerText = `Welcome, ${userData.user.name.split(' ')[0]}`
       displayTripCost(tripCost);
       displayUserTrips();
       setDestinationDropDown(userData.destinations);
@@ -188,6 +185,9 @@ loginButton.addEventListener("click", () => {
   if (!validateLogin(loginName, password)) {
     alert("Your information is incorrect!");
   } else {
+    userData.user = userData.travelers.find((traveler) => {
+      return traveler.id === validateLogin(loginName, password)
+    })
     hideMain.classList.remove("hidden");
     loginPage.classList.add("hidden");
     renderApp();

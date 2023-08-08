@@ -2,7 +2,7 @@ import { fetchUserBookings } from "./travelAPIcalls";
 import { currentTravelerTrips, tripCostContainer, userData } from "./scripts";
 import { buildCards, estimatedCost } from "./travelData";
 
-// const tripPage = document.querySelector('.trip-page');
+export const welcomeMessage = document.querySelector('.welcome-msg');
 export const loginButton = document.querySelector('.submit-btn');
 export const cardContainer = document.querySelector(".card-container");
 export const tripButton = document.querySelector(".trip-btn");
@@ -52,7 +52,6 @@ return card;
     }
 
     export const createVacationElement = (vacation) => {
-    console.log("vacation", vacation)
     vacationCard.innerHTML = `<h2 class="trip-destination">${vacation.name}</h2>
       <img class="trip-img" src="${vacation.image}" alt="Trip Image>
        <p class="trip-dates">${vacation.dates}</p>
