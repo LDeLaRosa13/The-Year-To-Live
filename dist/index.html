@@ -4,11 +4,66 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Webpack Starter Kit</title>
+  <title>The Year To Live</title>
 </head>
 <body>
-  <img src="./images/turing-logo.png" alt="turing logo">
-  
+  <section class="login-page">
+    <div class="login-section">
+      <h1 class="yolo">You Only Live Once</h1>
+      <div class="login-boxes">
+        <label for="username" class="login-info" Username:>
+          <input type="text" placeholder="username" id="username">
+        </label>
+        <label for="password" class="login-info" Password:>
+          <input type="text" placeholder="password" id="password">
+        </label>
+        <button class="submit-btn">Login</button>
+      </div>
+    </div>
+  </section>
+  <main>
+  <div class="hide-main hidden">
+    <section class="user-welcome">
+      <div class="welcome-panel">
+        <nav>
+          <ul class="nav-bar">
+            <li><h2 class="welcome-msg nav-bar">Welcome Person!</h2></li>
+          </ul>
+        </nav>
+      </div>
+    </section>
+    <section class="user-trip-input">
+        <label for="start-date" class="input-btn">Start Date:
+          <input type="date" id="start-date">
+        </label>
+        <label for="duration" class="input-btn">Duration:
+          <input type="number" min="0" id="duration">
+        </label>
+        <label for="num-of-travelers" class="input-btn"> Travelers:
+          <input type="number" min="0" id="travelers">
+        </label>
+        <label for="drop"> Destination:
+          <select type="text" class="input-btn" id="destination">
+            <option value="0">Where To?</option>
+          </select>
+        </label>
+        <button  id="submit-btn" type="submit">Submit</button>
+        <p class="estimated-cost">Estimated Total Cost:</p>
+    </section>
+    <section class="user-trip-info">
+      <p>Total Spent This Year: <span id="tripCostContainer">$0.00</span><p>
+      <div class="button-box">
+        <button class="trip-btn" id="past">Past Trips</button>
+        <button class="trip-btn" id="upcoming">Upcoming Trips</button>
+        <button class="trip-btn" id="pending">Pending Trips</button>
+      </div>
+      <div class="vacation-card hidden"></div>
+    </section>
+    <h2 id="trip-type">Show Trips</h2>
+    <div class="card-container">
+    </div>
+  </div>
+  </main>
   <!-- Do not include the scripts.js or class files here - it is done by the webpack server -->
   <script src="bundle.js"></script>
 
