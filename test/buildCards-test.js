@@ -26,4 +26,8 @@ describe('build trip cards', () => {
       isUpcoming: false,
     })
   })
+  it('should return an error message if parameters are not met', () => {
+    const cardError = buildCards('trips');
+    expect(cardError).to.equal("Missing Information!")
+  })
 })

@@ -18,7 +18,7 @@ export const createCardElement = (trip) => {
   card.classList.add('card');
 
 const cardHTML = `<section class="trip-destination">${trip.name}</section>
-  <img class="trip-img" src="${trip.image}" alt="Trip Image>
+  <img class="trip-img" src="${trip.image}" alt="Trip Image">
    <section class="trip-dates">${trip.dates}</section>`;
 
 card.innerHTML = cardHTML;

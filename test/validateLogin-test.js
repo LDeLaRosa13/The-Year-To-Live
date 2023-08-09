@@ -12,12 +12,17 @@ describe('validate login information', () => {
   })
 })
 
-it('should validate login information', () => {
-  const validLogin = validateLogin('traveler1', 'travel' )
-  expect(validLogin).to.equal(true)
+it('should gather a valid id', () => {
+  let id = 1
+  const validLogin = validateLogin(`traveler${id}`, 'travel' )
+  expect(validLogin).to.equal(1)
 })
 
 it('should return false', () => {
   const nonValidLogin = validateLogin('traveler99', 'travel')
   expect(nonValidLogin).to.equal(false)
+})
+it('should return an error message if parameters are not met', () => {
+  const loginResponse = validateLogin('name');
+  expect(loginResponse).to.equal("Missing Login Information!")
 })

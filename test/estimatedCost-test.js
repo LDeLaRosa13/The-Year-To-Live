@@ -13,7 +13,10 @@ describe('estimate trip cost', () => {
 
 it("should estimate trip cost based on information passed in", () => {
   const estimatedPrice = estimatedCost(sampleTrips[0].duration, sampleTravelers.length, sampleDestinations[0])
-  expect(estimatedPrice).to.equal('$2953.50')
+  expect(estimatedPrice).to.equal('Estimated Total Cost: $2953.50')
 })
 
-it('should ')
+it('should return an error message if parameters are not met', () => {
+  const costError = estimatedCost('travelers');
+  expect(costError).to.equal("Missing Information!")
+})

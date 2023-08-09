@@ -15,3 +15,8 @@ it("should calculate trip cost this year", () => {
 const tripCost = calculateTripCost(sampleTrips, sampleDestinations, 2021)
 expect(tripCost).to.equal(4095)
 })
+
+it('should return an error message if parameters are not met', () => {
+  const calculateError = calculateTripCost('userTripsObj');
+  expect(calculateError).to.equal("Missing Information!")
+})
