@@ -44,7 +44,9 @@ describe("collect users trips", () => {
       }
     ]);
   });
-  // it('')
+  it('should return an error message if parameters are not met', () => {
+    const userTrips = getUserTrips(1);
+    expect(userTrips).to.equal("Missing Information")
+  })
 });
-// happy for different user
-// sad for if no trips exist for user
+

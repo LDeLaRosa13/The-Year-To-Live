@@ -1,94 +1,58 @@
-# Webpack Starter Kit
 
-## Clone This Repo
+## Travel Tracker
+A final project for Mod 2 - Design an app that can manage and track a user's travel using a provided API.
 
-That's right, _clone_ not fork. You will use this repo multiple times, but you can only fork a repository once. So here is what you need to do to clone the repo and still be able to push changes to your repo:
+## Usage
+Welcome to your personal Travel Tracker! Upon visiting the site, a user is greated by a login screen. After entering the correct credentials, the user's dashboard appears. Users can view their yearly spending on travel, as well as upcoming, past trips, and any trips that may be pending a travel agent's approval.
 
-1. Clone down this repo. Since you don't want to name your project "webpack-starter-kit", you can use an optional argument when you run `git clone` (you replace the `[...]` with the terminal command arguments): `git clone [remote-address] [what you want to name the repo]`
-1. Remove the default remote: `git remote rm origin` (notice that `git remote -v` not gives you back nothing)
-1. Create a new repo on GitHub with the name of `[what you want to name the repo]` to be consistent with naming
-1. Copy the address that you would use to clone down this repo - something like `git@github.com:...`
-1. Add this remote to your cloned down repo: `git remote add origin [address you copied in the previous step]` - do not include the brackets
+ ## Preview of how to book a trip!
+https://media.giphy.com/media/HTc8K0JOKuRd0Lknec/giphy.gif
 
-Now try to commit something (just add a line in the README) and push it up to your new repo. If everything is setup correctly, you should see the changes on GitHub.
+## How to Install
+fork the repository
 
-## Setup
+git clone it down to your command line
 
-After one person has gone through the steps of cloning down this repo and editing the remote, everyone should clone down the repo.
+Navigate into the repository on your machine
 
-Then install the library dependencies. Run:
+Run npm install
 
-```bash
-npm install
-```
+git clone the travel api repo
 
-To verify that it is setup correctly, run `npm start` in your terminal. Go to `http://localhost:8080/` and you should see a page with the Turing logo image and a beautiful gradient background. If that's the case, you're good to go. Enter `control + c` in your terminal to stop the server at any time.
+Run npm install
 
-## Where to Add Your Code
+To view the site, run npm start in both repos
 
-### JavaScript
 
-You have to be very intentional with where you add your feature code. This repo uses a tool called [webpack](https://webpack.js.org/) to combine many JavaScript files into one big file. Webpack enables you to have many, separate JavaScript files to keep your code organized and readable. Webpack expects all of your code files to be in a specific place, or else it doesn't know how to combine them all behind the scenes.
+To login to the site:
+Username: traveler + any number 1 - 50 (ex: traveler36)
+Password: travel
 
-**Create all of your feature code files in the `src` directory.**
+## Planning
+I utilized GitHub Projects for project management as well as the detailed spec.
 
-Since code is separated into multiple files, you need to use the `import` and `export` syntax to share code across file.
 
-Here is a video that walks through some information about [import and export](https://www.youtube.com/watch?v=_3oSWwapPKQ). There are a lot of resources out there about `import` and `export`, and resources will sometimes call them `ES6 modules`. It's something you will see in React and beyond.
+## Challenges
+I developed a testing suite for this app to ensure Travelers and Trip objects were being instantiated correctly. I would like to have explored sad path testing further and perhaps in future would attempt to design more sad paths into the functions themselves.
+A major challenege in this project was accessing and manipulating api data correctly. After determining exactly what needed to be accessed and subsequently stored, the process seemed to make more sense.
+I found error handling on api calls to also be tricky, however, after some careful consideration, I created user friendly error handling for any bad responses. I would like to find better error handling for users upon a .catch firing.
+## Wins
+I felt my files were organized well and make sense when reading through the code.
+I feel I have a solid grasp on all the concepts included in the project - from the DOM manipulation and error handling, fetch calls, functions and their testing process. I was able to use iterator methods frequently and efficiently and with the help of the project management board, felt I had an overall control of the project and my plan from beginning to end.
 
-### HTML
 
-Add the HTML you need in the `index.html` file in the `./dist` directory. There is some boilerplate HTML that exists from the start that you can modify.
+## Technologies Used
+JavaScript (vanilla)
+HTML
+CSS
+WebPack
+Chai & Mocha
+Local Server API
 
-### Images
+## Project Members
+This project was designed and implemented by Lauren DeLaRosa
 
-Add your image files in the `src/images` directory. Similar to CSS files, you need to `import` image files in the JavaScript entry file (`scripts.js`). Then go into the HTML and add an `img` element with the `src` attribute pointing to the `images` directory. There is an example in the `index.html` file for you to see.
 
-## How to View Your Code in Action
-
-In the terminal, run:
-
-```bash
-npm start
-```
-
-You will see a bunch of lines output to your terminal. One of those lines will be something like:
-
-```bash
-Project is running at http://localhost:8080/
-```
-
-Go to `http://localhost:8080/` in your browser to view your code running in the browser.
-
----
-
-## Test Files Organization
-
-Similar to feature code, your test code needs to be put in a specific place for it to run successfully.
-
-**Put all of your test files in the `test` directory.** As a convention, all test filenames should end with `-test.js`. For instance: `box-test.js`.
-
-## Running Your Tests
-
-Run your test suite using the command:
-
-```bash
-npm test
-```
-
-The test results will output to the terminal.
-
----
-
-## Linting Your Code
-
-Run the command in your terminal `npm run lint` to run the linter on your JavaScript code. There will be errors and warnings right from the start in this starter kit - the linter is still running successfully.
-
-Your linter will look at the JavaScript files you have within the `src` directory and the `test` directory.
-
-## Webpack?
-
-If you look in the `package.json` file, you'll see one of the library dependencies called `webpack`. If you're interested in learning more about what Webpack is and how it works behind the scenes, take a look through the [Webpack configuration documentation](https://webpack.js.org/concepts/).
 
 ## Deploying to GitHub Pages
 

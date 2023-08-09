@@ -1,11 +1,17 @@
 export const travelAgentFeePercentage = 1.1;  
 
 export const getUserTrips = (userId, allTrips) => {
+  if (!userId || !allTrips) {
+    return "Missing Information"
+  }
   let userTrips = allTrips.filter((trip) => trip.userID === userId);
   return userTrips;
 };
 
 export const buildCards = (userTrips, destinations) => {
+  if (!userTrips || !destinations) {
+    return "Missing Information!"
+  }
   const currentDate = new Date();
   const totalTripInfo = userTrips.map((trip) => {
     let currentDestination = destinations.find((dest) => {
@@ -43,6 +49,9 @@ export const buildCards = (userTrips, destinations) => {
 };
 
 export const calculateTripCost = (userTripsObj, destinations, year) => {
+  if (!userTripsObj || !destinations || !year) {
+    return "Missing Information!"
+  }
   const userTrips = userTripsObj.filter((trip) => {
     const tripYear = new Date(trip.date).getFullYear();
     return tripYear === year;
@@ -72,6 +81,9 @@ export const calculateTripCost = (userTripsObj, destinations, year) => {
 };
 
 export const estimatedCost = (duration, travelers, destination) => {
+  if (!duration || !travelers || !destination) {
+    return "Missing Information!"
+  }
   if (duration && travelers && destination) {
     return  `Estimated Total Cost: $${(
       (destination.estimatedLodgingCostPerDay * duration +
@@ -84,6 +96,9 @@ export const estimatedCost = (duration, travelers, destination) => {
     };
 
 export const validateLogin = (name, password) => {
+  if (!password || !name) {
+    return "Missing Login Information!"
+  }
   const loginName = name.slice(0, 8);
   const loginID = Number(name.slice(8));
   const loginPassword = password;
